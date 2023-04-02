@@ -1,0 +1,125 @@
+.card-view ul, .card-view li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.card-view li.card-item {
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  padding-bottom: 1.5rem;
+  margin: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+}
+
+li.card-item.card-checked {
+  border: 1px solid var(--main-bg-highlight-color);
+  background-color: var(--main-bg-lighten-color);
+  border-radius: 1rem;
+  padding: 0 1rem;
+  padding-bottom: 1.5rem;
+  margin: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+}
+
+.card-item h4 > img {
+  margin-bottom: -6px;
+  margin-right: 4px;
+}
+
+.card-item img.unchecked {
+  opacity: .5;
+}
+
+.card-item img.checked {
+  filter: invert(30%) sepia(13%) saturate(2211%) hue-rotate(211deg) brightness(97%) contrast(88%);
+}
+
+.hero {
+  height: 200px;
+  position: relative;
+  z-index: -2;
+  margin: -4rem -1rem 2rem -1rem;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 200px;
+  background-image: url(https://media-cdn.tripadvisor.com/media/photo-s/06/b0/ee/39/tamper-espresso-bar.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-contents {
+  position: absolute;
+  background-color: rgba(255,255,255,.7);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+  border-radius: 1rem;
+  bottom: 1rem;
+  left: 50%;
+  width: 80%;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transform: translate(-50%);
+
+}
+
+
+
+
+.list-view {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.list-view ul, .list-view li {
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+.list-header {
+  background-color: rgba(86, 75, 138, 0.81);
+  font-weight: bold;
+  color: white;
+}
+
+.list-item div {
+  flex: 1 0 30%;
+  padding: 1rem 0 1rem 1rem;
+}
+
+.list-item div.col-id {
+  flex: 0 0 10%;
+}
+
+.list-item div:last-child {
+  padding-right: 1rem;
+}
+
+.list-item div:last-child.action-btns {
+  padding: 0;
+  padding-right: 1rem;
+  justify-content: end;
+}
+
+.list-item div:last-child.action-btns button {
+  padding: 0 1rem;
+  margin: 0.3rem 0 0.3rem 0.2rem;
+}
+
+.list-item.list-selectable:hover {
+  cursor: pointer;
+  background-color: #eee;
+  color: var(--main-bg-color)
+}
