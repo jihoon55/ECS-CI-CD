@@ -98,7 +98,6 @@ GitHub Action사용 시 ECS 배포는 정삭적으로 작동하지만 실행 시
 * 문제 해결
 처음부터 트래픽에 흐름에 맞게 순차적으로 확인해 보니 Workflow파일에 ECR_Registry가 정답이지만 내 파일에는 Registry만 적혀져 있었습니다.
 Workflow 내용을 공부하면서 직접 작성했던것이 에러를 만들었던 원인이 었고 ECR_Registry로 수정 후 3분 이내로 새로운 이미지가 배포되었습니다.
-![image](https://user-images.githubusercontent.com/118710033/229412998-4eb69d82-fb88-42f1-9cff-f3f18973df00.png)
 
 
 ## 📋 블로깅 & 레퍼런스
