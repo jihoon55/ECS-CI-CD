@@ -10,6 +10,7 @@ AWS ECS 서비스의 CI/CD
 
 Codepipeline을 이용한 프론트엔드 CI/CD
 ![image](https://user-images.githubusercontent.com/118710033/229151945-faeab13f-0324-47df-a1a3-09a980dcc871.png)
+<img src="./image.png", height="100x", width="100px">
 
 
 
@@ -24,6 +25,7 @@ Codepipeline을 이용한 프론트엔드 CI/CD
 * Github Action을 사용하기 위한 AWS ECR 이미지 빌드 yaml 파일 생성
   * AWS 키페어를 생성 후 Github 레포지토리 Setting 클립 Secrets and variables 항목에 저장
   * Configure AWS credentials의 키 페어를 값을 환경변수로 설정
+  
 * Private ECR 레포지토리 생성
   * Docker 클라이언트 인증을 위해 AWS CLI를 사용하여 터미널에 인증 토큰 인증
   * 태그를 지정 하여 리포지토리에 PUSH
@@ -67,27 +69,42 @@ Codepipeline을 이용한 프론트엔드 CI/CD
 * fastiy 프레임워크를 이용한 컨테이너 배포 방법을 알게됐습니다.
   * fastify 서버를 시작하면 로컬호스트 주소로 동작하므로 AWS에 컨테이너를 띄워도 접속할 수 없다. 따라서, package.json에서 -a 옵션으로 0.0.0.0 주소로 시작할 수 있도록 해야한다.
 * GitHub Action을 이용한 ECS 자동화 동작 원리를 알고, Json파일을 이용한 CI/CD를 알 수 있었습니다.
-
-
-서브넷망에 따른 ELB의 설정과 리스너, 규칙, 타겟 그룹 설정을 알게 되었습니다.
-
-내부통신을 위한 인터널과 외부통신을 위한 익스터널에 대해 알게 되었음.
-S3와 Cloudfront를 같이 사용하며 oac, acm, 버킷정책을 통한 보안 방법에 대해 공부할 수 있었습니다.
-
-S3가 퍼블릭한 환경에 있을 경우 보안상 안전하지 않고 이것을 어떻게 해결 할 수 있을지 고민함.
-Cloudfront에 oac를 사용함으로써 단일 트래픽 경로를 이용해 해결할 수 있다는 것을 알았음.
-CloudFront에 Signed Cookies를 사용하여 웹 어플리케이션이 생성한 쿠키를 사용하여 요청이 오리진에서 생성된 것인지 확인 가능함.
+  * ECR, ECS Workflow파일에 대해 공부할 수 있었음.
+* AWS Secrets Manager을 이용한 데이터베이스 Task Definition에 환경변수를 설정할 수 있었습니다.
+  * AWS Secrets Manager를 사용하기 위해서는 ECS역할에 Secrets Manager ReadWrite정책을 추가해줘야 사용할 수 있음.
+* ECS 배포 시 새로운 이미지가 배포되지 않는 오류가 트러블 슈팅
+  * 배포가 완료되도 성곡적인 배포가 아니기 때문에 완료된 부분이라도 배재하지 말고 트래픽의 흐림을 순차적으로 생각하게됨.
+  * 오류가 나타나지 않아도 실행되는 서비스에 로그를 확인해야 되는것을 알게 됨.
 
 ## 🚨 트러블 슈팅
 * 문제 상황
+GitHub Action사용 시 ECS 배포는 정삭적으로 작동하지만 실행 시간이 26분이었으며, 배포 된 이미지는 새로운 이미지가 아닌 기존에 이미지가 배포된 상태였다.
 
 * 원인 파악
+문제가 될 수 있는 부분을 먼저 추려보았다
+ - 깃허브 액션
+ - 클러스터 서비스 설정
+ - task definition
+
+먼저 배포가 정상적으로 됐기 때문에 GitHub Action Workflow에서는 문제가 없다 판단했다.
+
+그 후 클러스터 서비스와 Task Definition를 재설정하지만 똑같이 배포 시간과 오류가 발생하고 있었다
+
+ 
+ 여기서 실수가 테스크, 서비스 로그를 확인했어야 했지만 다른 방법으로 오류를 찾아 나섰다 만약 이때 로그를 확인했으면 더 빠른 방법으로 오류를 찾을 수 있었다(캡쳐한 로그 기록이 없다..)
+2. 배포가 됐다고 다른 배재하고 다른 문제를 찾는게 아니라 순차적으로 과정을 생각하자 결국 ecr에서 ecs로 가는 과정 즉 워크플로우에서 설정 내용이 문제인 것 처럼
+처음부터 모든 설정을 확인했지만 크게 잘 못 설정된 부분은 없었다
 
 * 문제 해결
+처음부터 트래픽에 흐름에 맞게 순차적으로 확인해 보니 Workflow파일에 ECR_Registry가 정답이지만 내 파일에는 Registry만 적혀져 있었습니다.
+Workflow 내용을 공부하면서 직접 작성했던것이 에러를 만들었던 원인이 었고 ECR_Registry로 수정 후 3분 이내로 새로운 이미지가 배포되었습니다.
+![image](https://user-images.githubusercontent.com/118710033/229412998-4eb69d82-fb88-42f1-9cff-f3f18973df00.png)
+
 
 ## 📋 블로깅 & 레퍼런스
 * 블로깅
   * https://jihoon555.tistory.com/58
+  * https://jihoon555.tistory.com/59
  
 * 레퍼런스 
   * https://www.fastify.io/
