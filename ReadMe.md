@@ -49,10 +49,11 @@ Codepipeline을 이용한 프론트엔드 CI/CD
 </details>
 
 <details>
-<summary>프론트엔드 배포 자동화 구현</summary>
+<summary>프론트엔드 배포 자동화 구현 ------- </summary>
 
 * CodePipeline을 이용한 클라이언트 파이프라인 구축합니다.
   * 파이프라인을 구축하며 GitHub 리포지토리, 배포 공급자, 빌드 공급자 설정함.
+  * 좀 더 기정리하기
 </details>
 
 <details>
@@ -66,10 +67,15 @@ Codepipeline을 이용한 프론트엔드 CI/CD
 * fastiy 프레임워크를 이용한 컨테이너 배포 방법을 알게됐습니다.
   * fastify 서버를 시작하면 로컬호스트 주소로 동작하므로 AWS에 컨테이너를 띄워도 접속할 수 없음. 
   * 따라서, package.json에서 -a 옵션으로 0.0.0.0 주소로 시작할 수 있도록 해야함.
-* GitHub Action을 이용한 ECS 자동화 동작 원리를 알고, Json파일을 이용한 CI/CD를 알 수 있었습니다.
+* GitHub Action을 이용한 ECS 자동화 동작 원리를 알고 workflow 파일을 작성할 수 있었습니다.   ------
+  * Task Definition에 Json파일을 이용한 CI/CD를 알 수 있었습니다.
   * ECR, ECS Workflow파일에 대해 공부할 수 있었음.
 * AWS Secrets Manager를 이용한 데이터베이스 Task Definition에 환경변수를 설정할 수 있었습니다.
   * AWS Secrets Manager를 사용하기 위해서는 ECS역할에 Secrets Manager ReadWrite정책을 추가해줘야 사용할 수 있음.
+* Codepipeline을 공부하며 프로튼엔드 서버에 사용할 수 있었습니다.   ---------
+  * codedeploy에 appspec파일, buildspoc파일에 대해 공부 할 수 있었습니다.    --------
+* 무중단 배포를 이용해 보면서 CI/CD에 편리함과 필요성을 느꼈습니다.
+  * 변경 사항이 빠르게 반영되고 인적 오류를 줄여 안정성과 가용성이 확보한 상태로 배포할 수 있다는것을 느꼈음.
 
 
 ## 🚨 트러블 슈팅
